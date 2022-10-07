@@ -12,43 +12,53 @@ def some_public_function(x: int):
     print("[omni.example.apiconnect] some_public_function was called with x: ", x)
     return x ** x
 
-
+#async function to get the color palette from huemint.com and print it
 async def get_colors_from_api(color_widgets):
 
-    #async function to get the color palette from http://colormind.io/api/ and print it
+    
     async with aiohttp.ClientSession() as session:
-        url = 'http://colormind.io/api/'
+        url = 'https://api.huemint.com/color'
         data = {
-            "model": "default",
-            # "input": [[0,0,0],[111,111,111]]
-        }
+            "mode":"transformer", #transformer, diffusion or random
+            "num_colors":"5", # max 12, min 2
+            "temperature":"1.2", #max 2.4, min 0
+            "num_results":"1", #max 50 for transformer, 5 for diffusion
+            "adjacency":[ "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0"], #nxn adjacency matrix as a flat array of strings
+            "palette":["-", "-", "-", "-", "-"], #locked colors as hex codes, or '-' if blank
+            }
         async with session.post(url, json=data) as resp:
-            palette = await resp.json(content_type=None)
+            result = await resp.json(content_type=None)
+            palette=result['results'][0]['palette']
+            print(str(palette))
             apply_colors(palette, color_widgets)
             
-
+            
+#apply the colors fetched from the api to the color widgets
 def apply_colors(palette, color_widgets):
             colors = [None]*5
             
-            colors[0] = palette['result'][0]
-            colors[1] = palette['result'][1]
-            colors[2] = palette['result'][2]
-            colors[3] = palette['result'][3]
-            colors[4] = palette['result'][4]
+            colors[0] = palette[0]
+            colors[1] = palette[1]
+            colors[2] = palette[2]
+            colors[3] = palette[3]
+            colors[4] = palette[4]
 
             print(colors)
            
             i =0
             for color_widget in color_widgets:
                 children = color_widget.model.get_item_children()
-                color_widget.model.get_item_value_model(children[0]).set_value(colors[i][0]/255)
-                color_widget.model.get_item_value_model(children[1]).set_value(colors[i][1]/255)
-                color_widget.model.get_item_value_model(children[2]).set_value(colors[i][2]/255)
+                color_widget.model.get_item_value_model(children[0]).set_value(hextofloats(colors[i])[0])
+                color_widget.model.get_item_value_model(children[1]).set_value(hextofloats(colors[i])[1])
+                color_widget.model.get_item_value_model(children[2]).set_value(hextofloats(colors[i])[2])
                 i=i+1
             
-            # print(str(color_widget.model.get_item_value_model(children[0]).get_value()))
+            #print(str(color_widget.model.get_item_value_model(children[0]).get_value()))
 
-   
+#hex to float conversion for transforming hex color codes to float values
+def hextofloats(h):
+    '''Takes a hex rgb string (e.g. #ffffff) and returns an RGB tuple (float, float, float).'''
+    return tuple(int(h[i:i + 2], 16) / 255. for i in (1, 3, 5)) # skip '#'   
 
 
 # Any class derived from `omni.ext.IExt` in top level module (defined in `python.modules` of `extension.toml`) will be
@@ -62,7 +72,7 @@ class MyExtension(omni.ext.IExt):
 
                 
 
-        self._window = ui.Window("API Connect Demo - PaletteGen", width=260, height=270)
+        self._window = ui.Window("API Connect Demo - HueMint", width=260, height=270)
         with self._window.frame:
             with ui.VStack(alignment=ui.Alignment.CENTER):
                 ui.Label("Click the button to get a new color palette",height=30)
