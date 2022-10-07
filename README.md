@@ -1,3 +1,11 @@
+# API Connect Sample Omniverse Extension
+
+This Sample Omniverse Extension demonstrate how to easily connect to an API. 
+
+In this sample, we create a palette of colors using the [HueMint.com](https://huemint.com/) API.
+
+![preview.png](/exts/data/preview.png)
+
 # Extension Project Template
 
 This project was automatically generated.
@@ -49,4 +57,12 @@ Link might look like this: `git://github.com/[user]/[your_repo].git?branch=main&
 Notice `exts` is repo subfolder with extensions. More information can be found in "Git URL as Extension Search Paths" section of developers manual.
 
 To add a link to your *Omniverse Kit* based app go into: Extension Manager -> Gear Icon -> Extension Search Path
+
+# Acknowledgements
+
+This Extensions uses the [Huemint.com API](https://huemint.com/about/). Huemint uses machine learning to create unique color schemes. 
+
+Special thanks to Jack Qiao for allowing us to use the Huemint API for this demonstration.
+
+Check out [Huemint.com](https://huemint.com/)
 
