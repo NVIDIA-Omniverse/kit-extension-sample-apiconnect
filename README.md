@@ -4,7 +4,7 @@ This Sample Omniverse Extension demonstrate how to easily connect to an API.
 
 In this sample, we create a palette of colors using the [HueMint.com](https://huemint.com/) API.
 
-![preview.png](/exts/data/preview.png)
+![preview.png](/exts/omni.example.apiconnect/data/preview.png)
 
 # Extension Project Template
 
