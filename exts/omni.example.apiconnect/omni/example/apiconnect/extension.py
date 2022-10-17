@@ -1,3 +1,5 @@
+# SPDX-License-Identifier: Apache-2.0
+
 import omni.ext
 import omni.ui as ui
 import asyncio

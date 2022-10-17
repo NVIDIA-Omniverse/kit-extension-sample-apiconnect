@@ -58,7 +58,7 @@ Notice `exts` is repo subfolder with extensions. More information can be found i
 
 To add a link to your *Omniverse Kit* based app go into: Extension Manager -> Gear Icon -> Extension Search Path
 
-# Acknowledgements
+## Attribution & Acknowledgements
 
 This Extensions uses the [Huemint.com API](https://huemint.com/about/). Huemint uses machine learning to create unique color schemes. 
 
@@ -66,3 +66,5 @@ Special thanks to Jack Qiao for allowing us to use the Huemint API for this demo
 
 Check out [Huemint.com](https://huemint.com/)
 
+## Contributing
+The source code for this repository is provided as-is and we are not accepting outside contributions.
