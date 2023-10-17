@@ -10,8 +10,8 @@ In this sample, we create a palette of colors using the [HueMint.com](https://hu
 ### [README](exts/omni.example.apiconnect)
 See the [README for this extension](exts/omni.example.apiconnect) to learn more about it including how to use it.
 
-## [Tutorial](exts/docs/tutorial.md)
-Follow a [step-by-step tutorial](exts/docs/tutorial.md) that walks you through how to use omni.ui.scene to build this extension.
+## [Tutorial](exts/omni.example.apiconnect/docs/tutorial.md)
+Follow a [step-by-step tutorial](exts/omni.example.apiconnect/docs/tutorial.md) that walks you through how to use omni.ui.scene to build this extension.
 
 ## Adding This Extension
 
