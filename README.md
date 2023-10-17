@@ -1,62 +1,72 @@
 # API Connect Sample Omniverse Extension
 
-This Sample Omniverse Extension demonstrate how to easily connect to an API. 
+![preview.png](/exts/omni.example.apiconnect/data/preview.png)
+
+### About
+This Sample Omniverse Extension demonstrate how connect to an API. 
 
 In this sample, we create a palette of colors using the [HueMint.com](https://huemint.com/) API.
 
-![preview.png](/exts/omni.example.apiconnect/data/preview.png)
+### [README](exts/omni.example.apiconnect)
+See the [README for this extension](exts/omni.example.apiconnect) to learn more about it including how to use it.
 
-# Extension Project Template
+## [Tutorial](exts/docs/tutorial.md)
+Follow a [step-by-step tutorial](exts/docs/tutorial.md) that walks you through how to use omni.ui.scene to build this extension.
 
-This project was automatically generated.
+## Adding This Extension
 
-- `app` - It is a folder link to the location of your *Omniverse Kit* based app.
-- `exts` - It is a folder where you can add new extensions. It was automatically added to extension search path. (Extension Manager -> Gear Icon -> Extension Search Path).
+To add a this extension to your Omniverse app:
+1. Go into: Extension Manager -> Hamburger Icon -> Settings -> Extension Search Path
+2. Add this as a search path: `git://github.com/NVIDIA-Omniverse/kit-extension-sample-apiconnect.git?branch=main&dir=exts`
 
-Open this folder using Visual Studio Code. It will suggest you to install few extensions that will make python experience better.
+Alternatively:
+1. Download or Clone the extension, unzip the file if downloaded
+2. Copy the `exts` folder path within the extension folder
+    - i.e. home/.../kit-extension-sample-apiconnect/exts (Linux) or C:/.../kit-extension-sample-apiconnect/exts (Windows)
+3. Go into: Extension Manager -> Hamburger Icon -> Settings -> Extension Search Path
+4. Add the `exts` folder path as a search path
 
-Look for "omni.example.apiconnect" extension in extension manager and enable it. Try applying changes to any python files, it will hot-reload and you can observe results immediately.
+## Linking with an Omniverse app
 
-Alternatively, you can launch your app from console with this folder added to search path and your extension enabled, e.g.:
-
-```
-> app\omni.code.bat --ext-folder exts --enable company.hello.world
-```
-
-# App Link Setup
-
-If `app` folder link doesn't exist or broken it can be created again. For better developer experience it is recommended to create a folder link named `app` to the *Omniverse Kit* app installed from *Omniverse Launcher*. Convenience script to use is included.
+For a better developer experience, it is recommended to create a folder link named `app` to the *Omniverse Kit* app installed from *Omniverse Launcher*. A convenience script to use is included.
 
 Run:
 
-```
+```bash
+# Windows
 > link_app.bat
+```
+
+```shell
+# Linux
+~$ link_app.sh
 ```
 
 If successful you should see `app` folder link in the root of this repo.
 
 If multiple Omniverse apps is installed script will select recommended one. Or you can explicitly pass an app:
 
+```bash
+# Windows
+> link_app.bat --app code
 ```
-> link_app.bat --app create
+
+```shell
+# Linux
+> link_app.sh --app code
 ```
 
 You can also just pass a path to create link to:
 
+```bash
+# Windows
+> link_app.bat --path "C:/Users/bob/AppData/Local/ov/pkg/create-2022.1.3"
 ```
-> link_app.bat --path "C:/Users/bob/AppData/Local/ov/pkg/create-2021.3.4"
+
+```shell
+# Linux
+> link_app.sh --path "home/bob/.local/share/ov/pkg/create-2022.1.3"
 ```
-
-
-# Sharing Your Extensions
-
-This folder is ready to be pushed to any git repository. Once pushed direct link to a git repository can be added to *Omniverse Kit* extension search paths.
-
-Link might look like this: `git://github.com/[user]/[your_repo].git?branch=main&dir=exts`
-
-Notice `exts` is repo subfolder with extensions. More information can be found in "Git URL as Extension Search Paths" section of developers manual.
-
-To add a link to your *Omniverse Kit* based app go into: Extension Manager -> Gear Icon -> Extension Search Path
 
 ## Attribution & Acknowledgements
 
