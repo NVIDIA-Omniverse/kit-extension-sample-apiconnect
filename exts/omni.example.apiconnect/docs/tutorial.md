@@ -33,7 +33,7 @@ For this guide, we will briefly go over how to create an extension. If you have 
 
   In Omniverse Code navigate to the `Extensions` tab and create a new extension by clicking the ➕ icon in the upper left corner and select `New Extension Template Project`. 
 
-  <br>
+Name the project to `kit-ext-apiconnect` and the extension name to `my.api.connect`.
 
   ![](./images/ext_tab.png)
 
@@ -52,26 +52,19 @@ A new extension template window and Visual Studio Code will open after you have 
 
   Before beginning to code, navigate into `VS Code` and change how the extension is viewed in the **Extension Manager**. It's important to give your extension a title and description for the end user to understand the extension's purpose. 
 
-
-
 Inside of the `config` folder, locate the `extension.toml` file:
-
-![](./images/step1.2_naming_ext_tomlFile.PNG)
-
 
 > **Note:** `extension.toml` is located inside of the `exts` folder you created for your extension.  
 
 ![](./images/fileStructTOML.PNG)
 
 
+Inside of this file, there is a title and description for how the extension will look in the **Extension Manager**. Change the title and description for the extension. 
 
-Inside of this file, there is a title and description for how the extension will look in the **Extension Manager**. Change the title and description for the extension. Here is an example of how it looks in `VS Code` and how it looks in the **Extension Manager**:
-
-![title and description](./images/step1.2_naming_ext_uiTitle_uiDescrip.PNG)
-
-
-
-![new ui](./images/step1.2_naming_ext_ui_update.PNG)
+``` python
+title = "API Connection"
+description="Example on how to make an API reponse in Omniverse"
+```
 
 # Step 2: Set Up Window
 
