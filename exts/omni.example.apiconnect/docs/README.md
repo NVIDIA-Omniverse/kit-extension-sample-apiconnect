@@ -8,12 +8,12 @@ This Extension makes a single API call and updates UI elements. It demonstrates 
 
 See [Adding the Extension](../../../README.md#adding-this-extension) on how to add the extension to your project.
 ​
-## [Tutorial](../../docs/tutorial.md)
+## [Tutorial](tutorial.md)
 This extension sample also includes a step-by-step tutorial to accelerate your growth as you learn to build your own Omniverse Kit extensions. 
 
 Learn how to create an Extension that calls an API and use that information to update components within Omniverse. 
 
-​[Get started with the tutorial here.](../../docs/tutorial.md)
+​[Get started with the tutorial here.](tutorial.md)
 
 ## Usage
 
