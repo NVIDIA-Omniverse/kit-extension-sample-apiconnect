@@ -3,15 +3,15 @@
 ![preview.png](/exts/omni.example.apiconnect/data/preview.png)
 
 ### About
-This Sample Omniverse Extension demonstrate how connect to an API. 
+This Sample Omniverse Extension demonstrates how connect to an API. 
 
-In this sample, we create a palette of colors using the [HueMint.com](https://huemint.com/) API.
+In this sample, we create a palette of colors using the [HueMint.com](https://huemint.com/). API.
 
 ### [README](exts/omni.example.apiconnect)
 See the [README for this extension](exts/omni.example.apiconnect) to learn more about it including how to use it.
 
 ## [Tutorial](exts/omni.example.apiconnect/docs/tutorial.md)
-Follow a [step-by-step tutorial](exts/omni.example.apiconnect/docs/tutorial.md) that walks you through how to use omni.ui.scene to build this extension.
+Follow a [step-by-step tutorial](exts/omni.example.apiconnect/docs/tutorial.md) that walks you through how to build this extension using [asyncio](https://docs.python.org/3/library/asyncio.html) and [aiohttp](https://docs.aiohttp.org/en/stable/).
 
 ## Adding This Extension
 
@@ -70,7 +70,7 @@ You can also just pass a path to create link to:
 
 ## Attribution & Acknowledgements
 
-This Extensions uses the [Huemint.com API](https://huemint.com/about/). Huemint uses machine learning to create unique color schemes. 
+This extension uses the [Huemint.com API](https://huemint.com/about/). Huemint uses machine learning to create unique color schemes. 
 
 Special thanks to Jack Qiao for allowing us to use the Huemint API for this demonstration.
 

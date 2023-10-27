@@ -1,6 +1,6 @@
 # Connecting API to Omniverse Extension
 
-The API Connection extension show how to communicate with an API within Omniverse. This guide is great for extension builders who want to start using their own API tools or external API tools within Omniverse.
+The API Connection extension shows how to communicate with an API within Omniverse. This guide is great for extension builders who want to start using their own API tools or external API tools within Omniverse.
 
   > NOTE: Visual Studio Code is the preferred IDE, hence forth we will be referring to it throughout this guide. 
   > NOTE: Omniverse Code is the preferred platform, hence forth we will be referring to it throughout this guide.
@@ -10,7 +10,7 @@ The API Connection extension show how to communicate with an API within Omnivers
 In this tutorial you learn how to:
 - Use `asyncio`
 - Use `aiohttp` calls
-- Sending API Request
+- Send an API Request
 - Use Results from API Request
 - Use async within Omniverse
 
@@ -33,7 +33,7 @@ For this guide, we will briefly go over how to create an extension. If you have 
 
   In Omniverse Code navigate to the `Extensions` tab and create a new extension by clicking the ➕ icon in the upper left corner and select `New Extension Template Project`. 
 
-  <br>
+Name the project to `kit-ext-apiconnect` and the extension name to `my.api.connect`.
 
   ![](./images/ext_tab.png)
 
@@ -52,28 +52,21 @@ A new extension template window and Visual Studio Code will open after you have 
 
   Before beginning to code, navigate into `VS Code` and change how the extension is viewed in the **Extension Manager**. It's important to give your extension a title and description for the end user to understand the extension's purpose. 
 
-
-
 Inside of the `config` folder, locate the `extension.toml` file:
-
-![](./images/step1.2_naming_ext_tomlFile.PNG)
-
 
 > **Note:** `extension.toml` is located inside of the `exts` folder you created for your extension.  
 
 ![](./images/fileStructTOML.PNG)
 
 
+Inside of this file, there is a title and description for how the extension will look in the **Extension Manager**. Change the title and description for the extension. 
 
-Inside of this file, there is a title and description for how the extension will look in the **Extension Manager**. Change the title and description for the extension. Here is an example of how it looks in `VS code` and how it looks in the **Extension Manager**:
+``` python
+title = "API Connection"
+description="Example on how to make an API reponse in Omniverse"
+```
 
-![title and description](./images/step1.2_naming_ext_uiTitle_uiDescrip.PNG)
-
-
-
-![new ui](./images/step1.2_naming_ext_ui_update.PNG)
-
-# Step 2: Setup Window
+# Step 2: Set Up Window
 
 All coding will be contained within `extension.py`.
 
@@ -81,7 +74,7 @@ Before setting up the API request, the first step is to get a window. The UI con
 
 ## Step 2.1: Replace with Boilerplate Code
 
-With *VSCode* open, **go to** `extension.py` and replace all the code inside with the following:
+With *VS Code* open, **go to** `extension.py` and replace all the code inside with the following:
 
 ```python
 import omni.ext
@@ -127,7 +120,7 @@ class APIWindowExample(ui.Window):
 
 Save `extension.py` and go back to Omniverse. 
 
-Right now the Window should only has a label.
+Right now, the Window should only have a label.
 
 ![](./images/step2-2.png)
 
@@ -154,7 +147,7 @@ Here we create a Horizontal Stack that will contain 5 Color Widgets. Below that 
 ![](./images/step2-3.gif)
 
 
-After editing `extesnion.py` should look like the following:
+After editing `extension.py` should look like the following:
 
 
 ```python
@@ -196,13 +189,13 @@ class APIWindowExample(ui.Window):
 
 # Step 3: Create API Request
 
-To make an API Request we use the `aiohttp` library. This comes packaged in the Python Environment with Omniverse.
+To make an API Request we use the `aiohttp` library. This comes packaged in the Python environment with Omniverse.
 
-We use `asyncio` library as well to not freeze Omniverse when there is very expensive Python operations. Async is a single threaded / single process design because it's using cooperative multitasking.
+We use the `asyncio` library as well to avoid the user interface freezing when there are very expensive Python operations. Async is a single threaded / single process design because it's using cooperative multitasking.
 
 ## Step 3.1: Create a Task
 
-1. At the top of `extension.py` **add** `import asyncio` at the top.
+1. **Add** `import asyncio` at the top of `extension.py`.
 
 2. In `APIWindowExample` class, **add** the following function:
 
@@ -221,7 +214,7 @@ To call this function we first need to grab the current event loop.
 3. Before `ui.Label()` **add** the following line:
 - `run_loop = asyncio.get_event_loop()`
 
-Now we can use the event loop to create task that run concurrently.
+Now we can use the event loop to create a task that runs concurrently.
 
 4. Before `self.button`, **add** the following block of code:
 
@@ -235,7 +228,7 @@ def on_click():
 5. To connect it together **add** the following parameter in `self.button`: 
 - `clicked_fn=on_click`
 
-After editing `extesnion.py` should look like the following:
+After editing `extension.py` should look like the following:
 
 ```python
 import omni.ext
@@ -283,7 +276,7 @@ class APIWindowExample(ui.Window):
                 self.button = ui.Button("Refresh", clicked_fn=on_click)
 ```
 
-**Save** `extesnion.py` and go back to Omniverse. 
+**Save** `extension.py` and go back to Omniverse. 
 
 Now when we click on the Refresh button, in the Console tab it will print 'a' and after one second it will print 'b'.
 
@@ -291,7 +284,7 @@ Now when we click on the Refresh button, in the Console tab it will print 'a' an
 
 ## Step 3.2: Make API Request
 
-To **create** the API Request, we first need to create a `aiohttp` session.
+To **create** the API Request, we first need to create an `aiohttp` session.
 1. Add `import aiohttp` at the top of `extension.py`.
 
 2. In `get_colors_from_api()` remove:
@@ -303,7 +296,7 @@ print("b")
 and **add** the following:
 - `async with aiohttp.ClientSession() as session:`
 
-With the session created, we can build the URL and data to send to the API. For this example we are using [HueMint.com](https://huemint.com/) API. 
+With the session created, we can build the URL and data to send to the API. For this example we are using the [HueMint.com](https://huemint.com/) API. 
 
 3. Under `aiohttp.ClientSession()`, **add** the following block of code:
 ```python
@@ -333,7 +326,7 @@ async with session.post(url, json=data) as resp:
     print(palette)
 ```
 
-After editing `extesnion.py` should look like the following:
+After editing `extension.py` should look like the following:
 
 ```python
 import omni.ext
@@ -400,7 +393,7 @@ class APIWindowExample(ui.Window):
 
 **Save** `extension.py` and go back to Omniverse.
 
-When clicking on the Refresh button our Extension will know call the API and grab the json response and store it in `palette`. We can see the value for `palette` in the Console Tab.
+When clicking on the Refresh button our Extension will now call the API, grab the JSON response, and store it in `palette`. We can see the value for `palette` in the Console Tab.
 
 ![](./images/step3-3.gif)
 
@@ -411,7 +404,7 @@ Now that the API call is returning a response, we can now take that response and
 
 ## Step 4.1: Setup `apply_colors()`
 
-To apply the colors recieved from the API, **create** the following two functions inside of `APIWindowExample`:
+To apply the colors received from the API, **create** the following two functions inside of `APIWindowExample`:
 
 ```python
 #apply the colors fetched from the api to the color widgets
@@ -437,9 +430,9 @@ def hextofloats(self, h):
 ```
 
 In Kit there is a special awaitable: `await omni.kit.app.get_app().next_update_async()`
-- This waits for the next frame within Omniverse to run and if you want to execute something with one frame delay
+- This waits for the next frame within Omniverse to run. It is used when you want to execute something with a one-frame delay.
 - Why do we need this?
-    - When running Python code that is expensive it can cause the user interface to freeze
+    - Without this, running Python code that is expensive can cause the user interface to freeze
 
 ## Step 4.2: Link it together
 
@@ -447,7 +440,7 @@ Inside `get_colors_from_api()` **replace** `print()` with the following line:
 - `await self.apply_colors(palette, color_widgets)`
 
 
-After editing `extesnion.py` should look like the following:
+After editing `extension.py` should look like the following:
 
 ```python
 import omni.ext
@@ -532,13 +525,13 @@ class APIWindowExample(ui.Window):
                 self.button = ui.Button("Refresh", clicked_fn=on_click)
 ```
 
-**Save** `extension.py` and go back to Omniverse. When clicking on the Refresh button our color widget's in the window will now update based on the results given by the API Response.
+**Save** `extension.py` and go back to Omniverse. When clicking on the Refresh button our color widgets in the window will now update based on the results given by the API response.
 
 ![](./images/step4-2.gif)
 
 # Step 5: Visualize Progression
 
-Some API Reponses might not be as quick to give back a result. To indicate to user's that it is awaiting a response is to visualy display progression. 
+Some API reponses might not be as quick to return a result. Visual indicators can be added to indicate to the user that the extension is waiting for an API response.
 
 Examples can be loading bars, spinning circles, percent numbers, etc.
 
@@ -573,11 +566,11 @@ async def run_forever(self):
         await omni.kit.app.get_app().next_update_async()
 ```
 
-> **Note:** Since function will run forever. When creating coroutines make sure there is a way to end the process or cancel it to prevent it from running the entire time.
+> **Note:** This function will run forever. When creating coroutines make sure there is a way to end the process or cancel it to prevent it from running the entire time.
 
 Again we use `next_update_async()` to prevent the user interface from freezing.
 
-## Step 5.2: Canceling Tasks
+## Step 5.2: Cancelling Tasks
 
 As noted before this coroutine runs forever so after we apply the colors we will cancel that task to stop it from running.
 
@@ -594,7 +587,7 @@ task.cancel()
 self.button.text = "Refresh"
 ```
 
-After editing `extesnion.py` should look like the following:
+After editing `extension.py` should look like the following:
 
 ```python
 import omni.ext
@@ -698,6 +691,6 @@ class APIWindowExample(ui.Window):
                 self.button = ui.Button("Refresh", clicked_fn=on_click)
 ```
 
-**Save** `extension.py` and go back to Omniverse. Clicking the Refresh Button now will display a visual progression to let the user know that the program is running. Once the program is done it will revert back to saving "Refresh" instead of "Loading".
+**Save** `extension.py` and go back to Omniverse. Clicking the Refresh Button now will display a visual progression to let the user know that the program is running. Once the program is done the button will revert back to displaying "Refresh" instead of "Loading".
 
 ![](./images/step5-2.gif)
