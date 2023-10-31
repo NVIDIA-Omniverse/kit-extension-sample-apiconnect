@@ -605,7 +605,7 @@ self.button.text = "Refresh"
 3. After `carb.log_info()`, **add** the following lines:
 ```python
 task.cancel()
-self.button.text = "Connection Timeout\nRefresh"
+self.button.text = "Connection Timed Out \nClick to Retry"
 ```
 
 After editing `extension.py` should look like the following:
@@ -665,7 +665,7 @@ class APIWindowExample(ui.Window):
                 import carb
                 carb.log_info(f"Caught Exception {e}")
                 task.cancel()
-                self.button.text = "Connection Timeout\nRefresh"
+                self.button.text = "Connection Timed Out \nClick to Retry"
 
     #apply the colors fetched from the api to the color widgets
     async def apply_colors(self, palette, color_widgets):

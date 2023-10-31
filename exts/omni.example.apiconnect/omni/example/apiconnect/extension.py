@@ -46,7 +46,7 @@ class APIWindowExample(ui.Window):
             }
             # make the request
             try:
-                async with session.post(url, json=data, timeout=aiohttp.ClientTimeout(total=0.5)) as resp:
+                async with session.post(url, json=data) as resp:
                     # get the response as json
                     result = await resp.json(content_type=None)
 
@@ -63,7 +63,7 @@ class APIWindowExample(ui.Window):
                 carb.log_info(f"Caught Exception {e}")
                 # Cancel the progress indication and return the button to the original text
                 task.cancel()
-                self.button.text = "Connection Timeout\nRefresh"
+                self.button.text = "Connection Timed Out \nClick to Retry"
 
     # apply the colors fetched from the api to the color widgets
     async def apply_colors(self, palette, color_widgets):
