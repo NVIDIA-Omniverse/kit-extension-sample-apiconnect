@@ -1,66 +1,76 @@
 # API Connect Sample Omniverse Extension
 
-This Sample Omniverse Extension demonstrate how to easily connect to an API. 
-
-In this sample, we create a palette of colors using the [HueMint.com](https://huemint.com/) API.
-
 ![preview.png](/exts/omni.example.apiconnect/data/preview.png)
 
-# Extension Project Template
+### About
+This Sample Omniverse Extension demonstrates how connect to an API. 
 
-This project was automatically generated.
+In this sample, we create a palette of colors using the [HueMint.com](https://huemint.com/). API.
 
-- `app` - It is a folder link to the location of your *Omniverse Kit* based app.
-- `exts` - It is a folder where you can add new extensions. It was automatically added to extension search path. (Extension Manager -> Gear Icon -> Extension Search Path).
+### [README](exts/omni.example.apiconnect)
+See the [README for this extension](exts/omni.example.apiconnect) to learn more about it including how to use it.
 
-Open this folder using Visual Studio Code. It will suggest you to install few extensions that will make python experience better.
+## [Tutorial](exts/omni.example.apiconnect/docs/tutorial.md)
+Follow a [step-by-step tutorial](exts/omni.example.apiconnect/docs/tutorial.md) that walks you through how to build this extension using [asyncio](https://docs.python.org/3/library/asyncio.html) and [aiohttp](https://docs.aiohttp.org/en/stable/).
 
-Look for "omni.example.apiconnect" extension in extension manager and enable it. Try applying changes to any python files, it will hot-reload and you can observe results immediately.
+## Adding This Extension
 
-Alternatively, you can launch your app from console with this folder added to search path and your extension enabled, e.g.:
+To add a this extension to your Omniverse app:
+1. Go into: Extension Manager -> Hamburger Icon -> Settings -> Extension Search Path
+2. Add this as a search path: `git://github.com/NVIDIA-Omniverse/kit-extension-sample-apiconnect.git?branch=main&dir=exts`
 
-```
-> app\omni.code.bat --ext-folder exts --enable company.hello.world
-```
+Alternatively:
+1. Download or Clone the extension, unzip the file if downloaded
+2. Copy the `exts` folder path within the extension folder
+    - i.e. home/.../kit-extension-sample-apiconnect/exts (Linux) or C:/.../kit-extension-sample-apiconnect/exts (Windows)
+3. Go into: Extension Manager -> Hamburger Icon -> Settings -> Extension Search Path
+4. Add the `exts` folder path as a search path
 
-# App Link Setup
+## Linking with an Omniverse app
 
-If `app` folder link doesn't exist or broken it can be created again. For better developer experience it is recommended to create a folder link named `app` to the *Omniverse Kit* app installed from *Omniverse Launcher*. Convenience script to use is included.
+For a better developer experience, it is recommended to create a folder link named `app` to the *Omniverse Kit* app installed from *Omniverse Launcher*. A convenience script to use is included.
 
 Run:
 
-```
+```bash
+# Windows
 > link_app.bat
+```
+
+```shell
+# Linux
+~$ ./link_app.sh
 ```
 
 If successful you should see `app` folder link in the root of this repo.
 
-If multiple Omniverse apps is installed script will select recommended one. Or you can explicitly pass an app:
+If multiple Omniverse apps are installed the script will select the recommended one. Or you can explicitly pass an app:
 
-```
-> link_app.bat --app create
-```
-
-You can also just pass a path to create link to:
-
-```
-> link_app.bat --path "C:/Users/bob/AppData/Local/ov/pkg/create-2021.3.4"
+```bash
+# Windows
+> link_app.bat --app code
 ```
 
+```shell
+# Linux
+~$ ./link_app.sh --app code
+```
 
-# Sharing Your Extensions
+You can also pass a path that leads to the Omniverse package folder to create the link:
 
-This folder is ready to be pushed to any git repository. Once pushed direct link to a git repository can be added to *Omniverse Kit* extension search paths.
+```bash
+# Windows
+> link_app.bat --path "C:/Users/bob/AppData/Local/ov/pkg/create-2022.1.3"
+```
 
-Link might look like this: `git://github.com/[user]/[your_repo].git?branch=main&dir=exts`
-
-Notice `exts` is repo subfolder with extensions. More information can be found in "Git URL as Extension Search Paths" section of developers manual.
-
-To add a link to your *Omniverse Kit* based app go into: Extension Manager -> Gear Icon -> Extension Search Path
+```shell
+# Linux
+~$ ./link_app.sh --path "home/bob/.local/share/ov/pkg/create-2022.1.3"
+```
 
 ## Attribution & Acknowledgements
 
-This Extensions uses the [Huemint.com API](https://huemint.com/about/). Huemint uses machine learning to create unique color schemes. 
+This extension uses the [Huemint.com API](https://huemint.com/about/). Huemint uses machine learning to create unique color schemes. 
 
 Special thanks to Jack Qiao for allowing us to use the Huemint API for this demonstration.
 

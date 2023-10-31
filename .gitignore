@@ -10,3 +10,4 @@ _*/
 /.vs
 
 /app
+.vscode/settings.json
