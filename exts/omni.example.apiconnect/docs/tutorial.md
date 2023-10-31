@@ -63,7 +63,7 @@ Inside of this file, there is a title and description for how the extension will
 
 ``` python
 title = "API Connection"
-description="Example on how to make an API reponse in Omniverse"
+description="Example on how to make an API response in Omniverse"
 ```
 
 # Step 2: Set Up Window
@@ -315,16 +315,22 @@ data = {
 
 4. Based on HueMint.com we will create a POST request. **Add** the following code block under `data`:
 ```python
-#make the request    
-async with session.post(url, json=data) as resp:
-    #get the response as json
-    result = await resp.json(content_type=None)
-    
-    #get the palette from the json
-    palette=result['results'][0]['palette']
-    
-    print(palette)
+try:
+    #make the request    
+    async with session.post(url, json=data) as resp:
+        #get the response as json
+        result = await resp.json(content_type=None)
+        
+        #get the palette from the json
+        palette=result['results'][0]['palette']
+        
+        print(palette)
+except Exception as e:
+    import carb
+    carb.log_info(f"Caught Exception {e}")
 ```
+
+The `try / except` is used to catch when a Timeout occurs. To read more about Timeouts see [aiohttp Client Quick Start](https://docs.aiohttp.org/en/latest/client_quickstart.html).
 
 After editing `extension.py` should look like the following:
 
@@ -365,15 +371,19 @@ class APIWindowExample(ui.Window):
                 "adjacency":[ "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0"], #nxn adjacency matrix as a flat array of strings
                 "palette":["-", "-", "-", "-", "-"], #locked colors as hex codes, or '-' if blank
                 }
-            #make the request    
-            async with session.post(url, json=data) as resp:
-                #get the response as json
-                result = await resp.json(content_type=None)
-                
-                #get the palette from the json
-                palette=result['results'][0]['palette']
-                
-                print(palette)
+            try:
+                #make the request    
+                async with session.post(url, json=data) as resp:
+                    #get the response as json
+                    result = await resp.json(content_type=None)
+                    
+                    #get the palette from the json
+                    palette=result['results'][0]['palette']
+                    
+                    print(palette)
+            except Exception as e:
+                import carb
+                carb.log_info(f"Caught Exception {e}")
 
     def __init__(self, title: str, **kwargs) -> None:
         super().__init__(title, **kwargs)
@@ -479,15 +489,20 @@ class APIWindowExample(ui.Window):
                 "adjacency":[ "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0"], #nxn adjacency matrix as a flat array of strings
                 "palette":["-", "-", "-", "-", "-"], #locked colors as hex codes, or '-' if blank
                 }
-            #make the request    
-            async with session.post(url, json=data) as resp:
-                #get the response as json
-                result = await resp.json(content_type=None)
-                
-                #get the palette from the json
-                palette=result['results'][0]['palette']
-                
-                await self.apply_colors(palette, color_widgets)
+            try:
+                #make the request    
+                async with session.post(url, json=data) as resp:
+                    #get the response as json
+                    result = await resp.json(content_type=None)
+                    
+                    #get the palette from the json
+                    palette=result['results'][0]['palette']
+                    
+                    await self.apply_colors(palette, color_widgets)
+            except Exception as e:
+                import carb
+                carb.log_info(f"Caught Exception {e}")
+
     #apply the colors fetched from the api to the color widgets
     async def apply_colors(self, palette, color_widgets):
         colors = [palette[i] for i in range(5)]
@@ -531,7 +546,7 @@ class APIWindowExample(ui.Window):
 
 # Step 5: Visualize Progression
 
-Some API reponses might not be as quick to return a result. Visual indicators can be added to indicate to the user that the extension is waiting for an API response.
+Some API responses might not be as quick to return a result. Visual indicators can be added to indicate to the user that the extension is waiting for an API response.
 
 Examples can be loading bars, spinning circles, percent numbers, etc.
 
@@ -587,6 +602,12 @@ task.cancel()
 self.button.text = "Refresh"
 ```
 
+3. After `carb.log_info()`, **add** the following lines:
+```python
+task.cancel()
+self.button.text = "Connection Timeout\nRefresh"
+```
+
 After editing `extension.py` should look like the following:
 
 ```python
@@ -628,18 +649,24 @@ class APIWindowExample(ui.Window):
                 "adjacency":[ "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0"], #nxn adjacency matrix as a flat array of strings
                 "palette":["-", "-", "-", "-", "-"], #locked colors as hex codes, or '-' if blank
                 }
-            #make the request    
-            async with session.post(url, json=data) as resp:
-                #get the response as json
-                result = await resp.json(content_type=None)
-                
-                #get the palette from the json
-                palette=result['results'][0]['palette']
-                
-                await self.apply_colors(palette, color_widgets)
+            try:
+                #make the request    
+                async with session.post(url, json=data) as resp:
+                    #get the response as json
+                    result = await resp.json(content_type=None)
+                    
+                    #get the palette from the json
+                    palette=result['results'][0]['palette']
+                    
+                    await self.apply_colors(palette, color_widgets)
+                    task.cancel()
+                    self.button.text = "Refresh"
+            except Exception as e:
+                import carb
+                carb.log_info(f"Caught Exception {e}")
                 task.cancel()
-                self.button.text = "Refresh"
-                
+                self.button.text = "Connection Timeout\nRefresh"
+
     #apply the colors fetched from the api to the color widgets
     async def apply_colors(self, palette, color_widgets):
         colors = [palette[i] for i in range(5)]
