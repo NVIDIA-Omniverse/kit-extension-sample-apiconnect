@@ -18,9 +18,7 @@ In this tutorial you learn how to:
 # Prerequisites
   We recommend that you complete these tutorials before moving forward:
 
-- [Extension Environment Tutorial](https://github.com/NVIDIA-Omniverse/ExtensionEnvironmentTutorial)
 - [How to make an extension by spawning prims](https://github.com/NVIDIA-Omniverse/kit-extension-sample-spawn-prims)
-- [UI Window Tutorial](https://github.com/NVIDIA-Omniverse/kit-extension-sample-ui-window/blob/main/exts/omni.example.ui_window/tutorial/tutorial.md)
 
 
 # Step 1: Create an Extension
@@ -29,42 +27,91 @@ In this tutorial you learn how to:
 
 For this guide, we will briefly go over how to create an extension. If you have not completed [How to make an extension by spawning prims](https://github.com/NVIDIA-Omniverse/kit-extension-sample-spawn-prims/blob/main/exts/omni.example.spawn_prims/tutorial/tutorial.md) we recommend you pause here and complete that before moving forward.
 
-## Step 1.1: Create the extension template
+### Step 1.1: Open the Terminal
 
-  In Omniverse Code navigate to the `Extensions` tab and create a new extension by clicking the ➕ icon in the upper left corner and select `New Extension Template Project`. 
+In VSCode **open** a new terminal window, if one is not already open.
 
-Name the project to `kit-ext-apiconnect` and the extension name to `my.api.connect`.
+![](images/step1-1.png)
 
-  ![](./images/ext_tab.png)
+### Step 1.2: Create New Extension
 
-> **Note:** If you don't see the *Extensions* Window, enable **Window > Extensions**:
->
-> ![Show the Extensions panel](images/window_extensions.png)
-  
+In the terminal, run the `template new` command.
 
-<icon>                       |  <new template>
-:-------------------------:|:-------------------------:
-![icon](./images/icon_create.png "Plus Icon")  |  ![new template](./images/new_template.png "New Extension Template")
-
-A new extension template window and Visual Studio Code will open after you have selected the folder location, folder name, and extension ID. 
-
-## Step 1.2: Naming your extension
-
-  Before beginning to code, navigate into `VS Code` and change how the extension is viewed in the **Extension Manager**. It's important to give your extension a title and description for the end user to understand the extension's purpose. 
-
-Inside of the `config` folder, locate the `extension.toml` file:
-
-> **Note:** `extension.toml` is located inside of the `exts` folder you created for your extension.  
-
-![](./images/fileStructTOML.PNG)
-
-
-Inside of this file, there is a title and description for how the extension will look in the **Extension Manager**. Change the title and description for the extension. 
-
-``` python
-title = "API Connection"
-description="Example on how to make an API response in Omniverse"
+**Linux:**
+```bash
+./repo.sh template new
 ```
+
+**Windows:**
+```powershell
+.\repo.bat template new
+```
+
+Follow the prompt instructions, Use the arrow keys to move and Enter to select/continue:
+- **? Select with arrow keys what you want to create:** Extension
+- **? Select with arrow keys your desired template:**: Python UI Extension
+- **? Enter name of extension [name-spaced, lowercase, alphanumeric]:**: my.apiconnect.ext
+- **? Enter extension_display_name:**: API Connect
+- **? Enter version:**: 0.1.0
+
+### Step 1.3 Add the New Extension to the Application
+
+In VSCode, **go to** `source > apps > [YOUR KIT BASE EDITOR APP].kit`, **scroll** to the `[dependencies]` section.
+
+![](images/step1-3.png)
+
+At the bottom of the `[dependencies]` section, add the following line:
+
+``` json
+"my.apiconnect.ext" = {} 
+```
+
+**Save** the `.kit` file.
+
+
+### Step 1.3: Run a Build
+
+After a new extension has been added to the .kit file, the application should be rebuilt to ensure extensions are populated to the build directory.
+
+In the terminal, **run** the `build` command.
+
+**Linux:**
+```bash
+./repo.sh build
+```
+
+**Windows:**
+```powershell
+.\repo.bat build
+```
+
+### Step 1.4: Launch the Application
+
+In the terminal, **run** the `launch` command.
+
+**Linux:**
+```bash
+./repo.sh launch
+```
+**Windows:**
+```powershell
+.\repo.bat launch
+```
+
+**? Select with arrow keys which App would you like to launch:** [Select the desired editor application]
+
+***NOTE:* The initial startup may take 5 to 8 minutes as shaders compile for the first time. After initial shader compilation, startup time will reduce dramatically**
+
+Upon launching your Application, a new window appears in your Application, called "API Connect":
+
+![My window](images/spawnprim_tutorial8.png)
+
+If you click **Add** in *API Connect*, the `empty` text changes to `count: 1`, indicating that the button was clicked. Pressing **Add** again increases the number for count. Pressing **Reset** will reset it back to `empty`:
+
+![Console log](images/spawnprim_tutorial1.gif)
+
+
+**DO NOT** close out of the Application.
 
 # Step 2: Set Up Window
 
